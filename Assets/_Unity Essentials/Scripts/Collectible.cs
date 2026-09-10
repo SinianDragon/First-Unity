@@ -9,7 +9,6 @@ public class Collectible : MonoBehaviour
     {
 
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -17,7 +16,17 @@ public class Collectible : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-     Destroy(gameObject);
-     Instantiate(onCollectEffect,transform.position,Quaternion.identity);
+        if (other.CompareTag("Player"))
+        {
+            if (onCollectEffect != null)
+            {
+                Instantiate(onCollectEffect, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("onCollectEffect Empty Value", this);
+            }
+            Destroy(gameObject);
+        }
     }
 }
